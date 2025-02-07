@@ -5,9 +5,10 @@
 - [x] **Uso de API con Axios en Astro**
 - [x] **Uso de `client:load` en Astro** para Vue
 - [x] **Páginas dinámicas con rutas en Astro** (`astro/src/pages/character/[id].astro`)
-- [ ] **Uso de `fetch` en un archivo `.astro` sin depender de Vue**
+- [x] **Uso de `fetch` en un archivo `.astro` sin depender de Vue**
 - [ ] **Uso de variables de entorno (`.env`) en Astro**
 - [ ] **Optimización de imágenes con `astro/image`**
+- [ ] **Optimización y mejoras** en rendimiento (Lazy Load, caching)
   
 ## 🎨 Mejoras en Estilos y UI
 - [x] **Tailwind CSS 4 instalado y funcionando**
@@ -18,8 +19,8 @@
 
 ## 🔍 Funcionalidades a Mejorar
 - [x] **Búsqueda de personajes por nombre**
-- [ ] **Paginación para cambiar de página**
-- [ ] **Filtros por estado (Vivo, Muerto, Desconocido)**
+- [x] **Paginación para cambiar de página**
+- [x] **Filtros por estado (Vivo, Muerto, Desconocido)**
 - [ ] **Ordenar personajes por nombre o especie**
 - [ ] **Ver detalles de un personaje en una página aparte (`/character/:id`)**
 - [ ] **Mostrar episodios en los que aparece un personaje**

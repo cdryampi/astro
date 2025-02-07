@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { Character } from "../../types/character";
 
-const API_URL = "https://rickandmortyapi.com/api";
+const API_URL = import.meta.env.PUBLIC_API_URL || "https://rickandmortyapi.com/api";
 
 export const getCharacters = async (page: number = 1): Promise<{ characters: Character[], totalPages: number }> => {
   try {
@@ -37,5 +37,19 @@ export const getEpisodes = async (episodeUrls: string[]): Promise<string[]> => {
   } catch (error) {
     console.error("Error fetching episodes:", error);
     return [];
+  }
+};
+
+// filtrar personaje porr estado y especie
+
+export const getFilteredCharacters = async (name: string = "", status: string = "", species: string = "", page: number = 1) => {
+  try {
+    const { data } = await axios.get("https://rickandmortyapi.com/api/character", {
+      params: { name, status, species, page },
+    });
+    return { characters: data.results, totalPages: data.info.pages };
+  } catch (error) {
+    console.error("Error fetching filtered characters:", error);
+    return { characters: [], totalPages: 0 };
   }
 };

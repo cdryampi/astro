@@ -1,16 +1,40 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import { getCharacters } from "../assets/services/api";
+import SearchComponent  from './SearchComponent.vue';
+import { getCharacters, getFilteredCharacters  } from "../assets/services/api";
 import type { Character } from "../types/character";
+
 
 const characters = ref<Character[]>([]);
 const currentPage = ref<number>(1);
 const totalPages = ref<number>(1);
 
+
+// Filtros iniciales
+const filters = ref({
+  name: "",
+  status: "",
+  species: "",
+});
+
+
 const fetchCharacters = async () => {
-  const { characters: charList, totalPages: total } = await getCharacters(currentPage.value);
-  characters.value = charList;
-  totalPages.value = total;
+  if (filters.value.name || filters.value.status || filters.value.species) {
+    // ✅ Si hay filtros, usa getFilteredCharacters
+    const { characters: charList, totalPages: total } = await getFilteredCharacters(
+      filters.value.name, 
+      filters.value.status, 
+      filters.value.species, 
+      currentPage.value
+    );
+    characters.value = charList;
+    totalPages.value = total;
+  } else {
+    // ✅ Si no hay filtros, usa getCharacters
+    const { characters: charList, totalPages: total } = await getCharacters(currentPage.value);
+    characters.value = charList;
+    totalPages.value = total;
+  }
 };
 
 const nextPage = () => {
@@ -27,6 +51,12 @@ const prevPage = () => {
   }
 };
 
+// Función para actualizar los filtros
+const updateFilters = (newFilters: { name: string, status: string, species: string }) => {
+  filters.value = newFilters;
+  fetchCharacters();
+};
+
 onMounted(fetchCharacters);
 </script>
 
@@ -34,6 +64,10 @@ onMounted(fetchCharacters);
   <div class="flex flex-col items-center mt-6">
     <h1 class="text-4xl font-bold text-amber-400 mb-6">Rick & Morty Characters</h1>
 
+    <!-- Componente de Búsqueda -->
+    <SearchComponent @updateFilters="updateFilters" />
+
+    <!-- Grid de Personajes -->
     <div class="bg-gray-900 p-8 rounded-xl shadow-lg w-full max-w-7xl">
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         <a
