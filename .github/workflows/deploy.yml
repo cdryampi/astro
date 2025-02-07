@@ -1,0 +1,19 @@
+name: Deploy Astro to Vercel
+
+on:
+  push:
+    branches:
+      - main  # Puedes cambiar esto si usas otra rama principal
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛎️ Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: ⏬ Install Dependencies
+        run: npm install
+
+      - name: 🚀 Deploy to Vercel
+        run: npx vercel --token ${{ secrets.VERCEL_TOKEN }} --prod
