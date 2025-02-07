@@ -1,0 +1,72 @@
+---
+export const prerender = false;
+import { getCharacterById, getEpisodes } from "../../assets/services/api";
+import '../../assets/src/css/style.css';
+const { id } = Astro.params;
+const character = await getCharacterById(Number(id));
+import Layout from "../../layouts/Layout.astro";
+
+if (!character) {
+  throw new Error("Character not found");
+}
+// obtener episodios
+const episodes = await getEpisodes(character.episode);
+---
+<Layout :title="character.name" description="Detalles de un personaje de Rick & Morty">
+    <div class="max-w-3xl mx-auto p-6 bg-gray-800 rounded-lg shadow-lg text-center">
+        <img src={character.image} alt={character.name} class="rounded-lg w-40 mx-auto border border-amber-500 shadow-lg" />
+        <h1 class="text-4xl font-bold text-amber-400 mt-4">{character.name}</h1>
+        <p class="text-xl text-gray-300 mt-2">Status: <span class="font-semibold">{character.status}</span></p>
+        <p class="text-lg text-gray-300">Species: {character.species}</p>
+        <p class="text-lg text-gray-300">Gender: {character.gender}</p>
+        <p class="text-lg text-gray-300">Origin: {character.origin.name}</p>
+  
+        <!-- Botón de Favoritos -->
+        <button 
+          id="favorite-btn"
+          class="mt-4 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition-transform transform hover:scale-105"
+        >
+          ⭐ Añadir a Favoritos
+        </button>
+  
+        <!-- Lista de episodios -->
+        <div class="mt-6 text-left bg-gray-700 p-4 rounded-lg shadow-md">
+          <h2 class="text-2xl font-bold text-amber-300">📺 Aparece en:</h2>
+          <ul class="mt-2 text-gray-300">
+            {episodes.map(episode => (
+              <li class="mt-1 border-l-4 border-amber-400 pl-2">{episode}</li>
+            ))}
+          </ul>
+        </div>
+  
+        <a href="/" class="mt-6 inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-transform transform hover:scale-105">
+          🔙 Volver
+        </a>
+      </div>
+      <script>
+          document.addEventListener("DOMContentLoaded", () => {
+            try {
+              const characterId = "{id}"; // Ensure this is correctly passed or defined
+              const character = { id: characterId, name: "{character.name}", image: "{character.image}" };
+              const favoriteBtn = document.getElementById("favorite-btn");
+              if (!favoriteBtn) {
+                throw new Error("Button not found");
+              }
+              favoriteBtn.addEventListener("click", () => {
+                let favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+                if (!favorites.find(fav => fav.id === character.id)) {
+                  favorites.push(character);
+                  localStorage.setItem("favorites", JSON.stringify(favorites));
+                  alert("⭐ Añadido a favoritos!");
+                } else {
+                  alert("⚠️ Ya está en favoritos!");
+                }
+              });
+            } catch (error) {
+              console.error(error);
+            }
+          });
+        </script>
+</Layout>
+
+
