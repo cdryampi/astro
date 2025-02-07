@@ -1,0 +1,15 @@
+---
+
+import '../assets/src/css/style.css';
+//import { getCharacters } from '../assets/services/api';
+//import MainComponent from '../components/MainComponent.vue';
+import CharacterGrid from '../components/CharacterGridComponent.vue';
+import Layout from "../layouts/Layout.astro";
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+---
+
+<Layout title="Rick & Morty Explorer" description="Explora el universo de Rick & Morty con datos detallados de personajes y episodios.">
+	<CharacterGrid client:load />
+</Layout>
