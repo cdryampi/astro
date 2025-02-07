@@ -1,20 +1,13 @@
-// @ts-check
 import { defineConfig } from "astro/config";
-import tailwindcss from "@tailwindcss/vite";
-import Vue from '@astrojs/vue';
-import dotenv from 'dotenv';
-import vercel from '@astrojs/vercel';
-dotenv.config();
+import Vue from "@astrojs/vue";
+import tailwind from "@astrojs/tailwind";
+import vercel from "@astrojs/vercel/server"; // ✅ Importar correctamente con "/server"
 
-// https://astro.build/config
 export default defineConfig({
-
+  output: "server", // ✅ Importante para Vercel Serverless
   adapter: vercel(),
-  output: "server",
   integrations: [
     Vue(),
+    tailwind(),
   ],
-  vite: {
-    plugins: [tailwindcss()],
-  },
 });
