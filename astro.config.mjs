@@ -8,6 +8,8 @@ dotenv.config();
 
 // https://astro.build/config
 export default defineConfig({
+
+  adapter: vercel(),
   output: "server",
   integrations: [
     Vue(),
@@ -15,5 +17,4 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  adapter: vercel(),
 });
