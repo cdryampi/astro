@@ -1,7 +1,7 @@
+/* empty css                                   */
 import { c as createComponent, a as createAstro, r as renderTemplate, b as renderComponent, m as maybeRenderHead, d as addAttribute } from '../../chunks/astro/server_DMkRMATn.mjs';
 import 'kleur/colors';
 import { g as getCharacterById, a as getEpisodes, $ as $$Layout } from '../../chunks/Layout_BZiRblxq.mjs';
-/* empty css                                   */
 export { renderers } from '../../renderers.mjs';
 
 const $$Astro = createAstro();

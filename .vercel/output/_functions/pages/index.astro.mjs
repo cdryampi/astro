@@ -1,6 +1,6 @@
+/* empty css                                */
 import { c as createComponent, a as createAstro, r as renderTemplate, b as renderComponent } from '../chunks/astro/server_DMkRMATn.mjs';
 import 'kleur/colors';
-/* empty css                                */
 import { defineComponent, useSSRContext, ref, mergeProps, onMounted } from 'vue';
 import { ssrRenderAttrs, ssrRenderAttr, ssrIncludeBooleanAttr, ssrLooseContain, ssrLooseEqual, ssrRenderComponent, ssrRenderList, ssrInterpolate } from 'vue/server-renderer';
 import { b as getFilteredCharacters, c as getCharacters, $ as $$Layout } from '../chunks/Layout_BZiRblxq.mjs';
